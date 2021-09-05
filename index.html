@@ -1,107 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Devs for Revolution Token finder</title>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
-          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+      crossorigin="anonymous"
+    />
     <style>
-        body{
-            background-color: #2876f9;
-            background-image: linear-gradient(315deg, #2876f9 0%, #6d17cb 74%);
-            background-size: cover;
-            height: 100vh;
-            color:white;
-        }
-        a, a:link, a:active, a:hover{
-            color:white;
-            font-size: small;
-            text-decoration: none;
-        }
-        a:active, a:hover{
-            text-decoration: underline;
-        }
-        .h1{
-            margin-top: 1em;
-        }
-        .main{
-            margin-top: 3em;
-        }
-        .tokenidinput{
-            max-width: 10em;
-        }
-        #result{
-            font-size: small;
-            margin-top: 2em;
-        }
-        footer{
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-        }
-        footer > div{
-            text-align: center;
-            margin: 0 auto;
-            color: navajowhite;
-        }
-        footer > div > a{
-            color:navajowhite;
-            font-weight: bold;
-        }
+      body {
+        background-color: #2876f9;
+        background-image: linear-gradient(315deg, #2876f9 0%, #6d17cb 74%);
+        background-size: cover;
+        height: 100vh;
+        color: white;
+      }
+      a,
+      a:link,
+      a:active,
+      a:hover {
+        color: white;
+        font-size: small;
+        text-decoration: none;
+      }
+      a:active,
+      a:hover {
+        text-decoration: underline;
+      }
+      .h1 {
+        margin-top: 1em;
+      }
+      .main {
+        margin-top: 3em;
+      }
+      .tokenidinput {
+        max-width: 10em;
+      }
+      #result {
+        font-size: small;
+        margin-top: 2em;
+      }
+      footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+      }
+      footer > div {
+        text-align: center;
+        margin: 0 auto;
+        color: navajowhite;
+      }
+      footer > div > a {
+        color: navajowhite;
+        font-weight: bold;
+      }
     </style>
-</head>
-<body>
-<div class="container">
-    <div class="row">
-            <h1 class="text-center h1">Devs for Revolution Token finder</h1>
-    </div>
-    <div class="container main">
-        <p>Enter a starting number (between 1 and 7778) and find the first available token ID.
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <h1 class="text-center h1">Devs for Revolution Token finder</h1>
+      </div>
+      <div class="container main">
+        <p>
+          Enter a starting number (between 1 and 7778) and find the first
+          available token ID.
 
-        <!--When you press the button it will check the token ID you entered and if it's not
+          <!--When you press the button it will check the token ID you entered and if it's not
             available, it will add 1 and look for the next until it finds one you can use.-->
-
         </p>
 
         <p>
-            NOTE: There's an issue with rate limiting that I'm looking at, so the service
-            doesn't quite work as intended after getting hit with a lot of traffic. I apologize
-            for the inconvenience. In the meantime, go to <a href="https://etherscan.io/address/0x25ed58c027921E14D86380eA2646E3a1B5C55A8b">etherscan contract</a>
-            and try out the "ownerOf" field manually.
+          NOTE: There's an issue with rate limiting that I'm looking at, so the
+          service doesn't quite work as intended after getting hit with a lot of
+          traffic. I apologize for the inconvenience. In the meantime, go to
+          <a
+            href="https://etherscan.io/address/0x25ed58c027921E14D86380eA2646E3a1B5C55A8b"
+            >etherscan contract</a
+          >
+          and try out the "ownerOf" field manually.
         </p>
 
         <p id="account">Your Account</p>
 
         <form>
-            <div class="form-group">
-                <label for="tokenid">Starting token id</label>
-                <input type="text" class="form-control tokenidinput" id="tokenid" placeholder="1">
-            </div>
-            <div class="form-group">
-                <button class="btn-success btn-ownerof">Get first available ID</button>
-            </div>
+          <div class="form-group">
+            <label for="tokenid">Starting token id</label>
+            <input
+              type="text"
+              class="form-control tokenidinput"
+              id="tokenid"
+              placeholder="1"
+            />
+          </div>
+          <div class="form-group">
+            <button class="btn-success btn-ownerof">
+              Get first available ID
+            </button>
+          </div>
         </form>
         <div id="result">Availability will show up here...</div>
-        <div id="errormessage" class="small"><a href="https://etherscan.io/address/0x25ed58c027921E14D86380eA2646E3a1B5C55A8b#writeContract" target="_blank" referrerpolicy="no-referrer">Claim your token here</a></div>
+        <div id="errormessage" class="small">
+          <a
+            href="https://etherscan.io/address/0x25ed58c027921E14D86380eA2646E3a1B5C55A8b#writeContract"
+            target="_blank"
+            referrerpolicy="no-referrer"
+            >Claim your token here</a
+          >
+        </div>
+      </div>
     </div>
-
-</div>
-<footer class="text-center text-lg-start text-muted">
-    <div class="container p-4">
+    <footer class="text-center text-lg-start text-muted">
+      <div class="container p-4">
         made by Sven @ <a href="https://www.robbestad.com">robbestad.com</a>
-    </div>
-</footer>
+      </div>
+    </footer>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
-        integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/"
-        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
+      integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/"
+      crossorigin="anonymous"
+    ></script>
 
-<script src="web3.min.js"></script>
-<script src="app.js"></script>
-</body>
+    <script src="web3.min.js"></script>
+    <script src="app.js"></script>
+  </body>
 </html>
-
