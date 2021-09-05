@@ -69,20 +69,6 @@ App = {
     event.preventDefault();
     found = false;
     App.tokenId = parseInt($("#tokenid").val());
-    checkOwnerOf(App.tokenId);
-    if (!found) {
-      $("#result").html("Token ID: " + App.tokenId + " is not available");
-      taken.push(App.tokenId);
-      App.tokenId = App.tokenId + 1;
-      $("#tokenid").val(App.tokenId);
-    }
-    if (found) {
-      $("#result").html("Token ID: " + App.tokenId + " is available");
-      $("#error").html(error.message);
-      clearInterval(this);
-      clearInterval(ownerInterval);
-    }
-    /*
 		var ownerInterval = setInterval(function(){
 			if(!found) checkOwnerOf(App.tokenId);
 			if(!found){
@@ -98,7 +84,6 @@ App = {
 				clearInterval(ownerInterval);
 			}
 		},5000);
-*/
   },
 };
 
