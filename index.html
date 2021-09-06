@@ -137,16 +137,10 @@
         $(".form-search").css("display","block")
         $(".print").css("display","block")
       }
-      var taken=[];
-      fetch("https://raw.githubusercontent.com/svenanders/devsrev/main/taken.json")
-      .then(data=>data.json())
-      .then(data=> {
-        taken = data.taken;
-        console.log(taken);
-      });
-    </script>
 
+    </script>
     <script src="web3.min.js"></script>
+    <script src="taken.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
