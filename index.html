@@ -138,11 +138,12 @@
         $(".print").css("display","block")
       }
       var taken=[];
-      fetch("https://raw.githubusercontent.com/svenanders/devsrev/main/taken.js")
-      .then(data=>data.text())
-      .then(data=>{
-        taken=data;
-        console.log({taken})})
+      fetch("https://raw.githubusercontent.com/svenanders/devsrev/main/taken.json")
+      .then(data=>data.json())
+      .then(data=> {
+        taken = data.taken;
+        console.log(taken);
+      });
     </script>
 
     <script src="web3.min.js"></script>
