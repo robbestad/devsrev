@@ -57,7 +57,7 @@ for (i = 0; i < 25; i++) {
 setTimeout(() => {
   const filteredTaken = taken.filter(unique);
   const data = JSON.stringify({ taken: filteredTaken });
-  fs.writeFile("./taken.json", data, "utf8", (err) => {
+  fs.writeFile("./build/taken.json", data, "utf8", (err) => {
     if (err) {
       console.log(`Error writing file: ${err}`);
     } else {
