@@ -1,26 +1,22 @@
-var found = false;
-
 function unique(value, index, self) {
   return self.indexOf(value) === index;
 }
-
 function notInTaken(value, index, self) {
   return !uniqueTaken.includes(value);
 }
-
 var uniqueTaken = taken.filter(unique);
-var filteredIds = ids.filter(notInTaken);
+var availableIds = ids.filter(notInTaken);
 
 function checkOwnerOf(tokenId) {
   web3.eth.getAccounts(function (error, accounts) {
     if (error) {
-      console.log(error);
+      console.error(error);
     }
-    console.log("checking owner for token", tokenId);
+    console.debug("checking owner for token", tokenId);
     web3.eth.defaultAccount = accounts[0];
     App.myContractInstance.ownerOf.call(tokenId, function (error, result) {
       if (!result) {
-        console.log("available", tokenId);
+        console.debug("available", tokenId);
       } else {
         taken.push(tokenId);
       }
@@ -60,23 +56,29 @@ App = {
     return App.bindEvents();
   },
   bindEvents: function () {
-    $(document).on("click", ".btn-ownerof", App.handleOwnerOf);
+    //$(document).on("click", ".btn-ownerof", App.handleOwnerOfAll);
+    $(document).on("click", ".btn-ownerof", App.handleOwnerOfDelta);
     $(document).on("click", ".btn-print", App.handlePrint);
-    $(document).on("click", ".btn-ownerof-first", App.handleFirstOwnerOf);
+    $(document).on("click", ".btn-ownerof-first", App.handlePrintFirstAvailable);
   },
 
-  handleFirstOwnerOf(event) {
+  handlePrintFirstAvailable(event) {
     event.preventDefault();
+	/*  uniqueTaken = taken.filter(unique);
+	  availableIds = ids.filter(notInTaken);
+	  var available = availableIds.filter(notInTaken);
+	  var list = available.filter((i, idx) => idx < 10);
+	  $("#result").html("Token IDs: " + list.join(", ") + " are claimable");
+*/
     fetch(
       "https://raw.githubusercontent.com/svenanders/devsrev/main/taken.json"
     )
       .then((data) => data.json())
       .then((data) => {
         taken = data.taken;
-        console.log("dl taken");
         uniqueTaken = taken.filter(unique);
-        filteredIds = ids.filter(notInTaken);
-        var available = filteredIds.filter(notInTaken);
+        availableIds = ids.filter(notInTaken);
+        var available = availableIds.filter(notInTaken);
         var list = available.filter((i, idx) => idx < 10);
         $("#result").html("Token IDs: " + list.join(", ") + " are claimable");
       });
@@ -86,23 +88,34 @@ App = {
     console.log(taken.filter(unique));
   },
 
-  handleOwnerOf: function (event) {
+  handleOwnerOfAll: function (event) {
     event.preventDefault();
-    found = false;
     App.tokenId = parseInt($("#tokenid").val());
-    var ownerInterval = setInterval(function () {
+    let ownerInterval = setInterval(function () {
       if (!found) checkOwnerOf(App.tokenId);
-      if (!found) {
-        //$("#result").html("Token ID: " + App.tokenId + " is not available");
-        //$("#tokenid").val(App.tokenId);
-      }
       if (found) {
-        //$("#result").html("Token ID: " + available[available.length - 1] + " is available");
         clearInterval(this);
         clearInterval(ownerInterval);
       }
       App.tokenId = App.tokenId + 1;
     }, 350);
+  },
+
+  handleOwnerOfDelta: function (event) {
+    event.preventDefault();
+    let idx=0;
+	  uniqueTaken = taken.filter(unique);
+	  availableIds = ids.filter(notInTaken);
+
+	  let ownerInterval = setInterval(()=>{
+	    tokenToCheck = availableIds[idx];
+	    checkOwnerOf(tokenToCheck);
+	    idx++;
+	    if(idx===10){
+		    clearInterval(this);
+		    clearInterval(ownerInterval);
+	    }
+    },500)
   },
 };
 
