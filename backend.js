@@ -1,7 +1,7 @@
 const Web3 = require("web3");
 const Contract = require("./build/Contract.abi.json");
 const secrets = require("./secrets.json");
-const taken = require("./build/taken.json").taken;
+let taken = require("./build/taken.json").taken;
 const ids = require("./build/ids.json").ids;
 const fs = require("fs");
 const web3 = new Web3(
@@ -41,7 +41,6 @@ async function getOwner(id) {
 }
 
 const available = ids.filter(notInTaken);
-
 for (i = 0; i < 25; i++) {
   let id = available[i];
   console.log("sjekker", id);
@@ -55,12 +54,14 @@ for (i = 0; i < 25; i++) {
     });
 }
 
-const filteredTaken = taken.filter(unique);
-const data = JSON.stringify({ taken: filteredTaken });
-fs.writeFile("./build/taken.json", data, "utf8", (err) => {
-  if (err) {
-    console.log(`Error writing file: ${err}`);
-  } else {
-    console.log(`File is written successfully!`);
-  }
-});
+setTimeout(() => {
+  const filteredTaken = taken.filter(unique);
+  const data = JSON.stringify({ taken: filteredTaken });
+  fs.writeFile("./taken.json", data, "utf8", (err) => {
+    if (err) {
+      console.log(`Error writing file: ${err}`);
+    } else {
+      console.log(`File is written successfully!`);
+    }
+  });
+}, 5000);
