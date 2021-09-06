@@ -35,7 +35,7 @@ function checkOwnerOf(tokenId) {
 }
 
 App = {
-	web3Provider: null,
+	web3Provider: new Web3.providers.HttpProvider("//mainnet.infura.io/v3/1805162848e74943a7f3653322ec5d22"),
 	contracts: {},
 	myContractInstance: null,
 	tokenId: 1064,
