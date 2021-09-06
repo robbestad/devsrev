@@ -4,8 +4,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Devs for Revolution Token finder</title>
-
-    <!-- Bootstrap -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
@@ -42,8 +40,13 @@
         max-width: 10em;
       }
       #result {
-        font-size: small;
-        margin-top: 2em;
+        margin: 2em 0;
+      }
+      .form-findids{
+        margin-top: 1em;
+      }
+      .form-search, .print{
+        display: none;
       }
       footer {
         position: absolute;
@@ -68,27 +71,14 @@
       </div>
       <div class="container main">
         <p>
-          Enter a starting number (between 1 and 7778) and find the first
-          available token ID.
-
-          <!--When you press the button it will check the token ID you entered and if it's not
-            available, it will add 1 and look for the next until it finds one you can use.-->
+          Token Ids can be any number between 1 and 7778. Press the button and find the first
+          10 available token ID. Numbers can be taken between each update, but the list is updated
+          regularly.
         </p>
 
-        <p>
-          NOTE: There's an issue with rate limiting that I'm looking at, so the
-          service doesn't quite work as intended after getting hit with a lot of
-          traffic. I apologize for the inconvenience. In the meantime, go to
-          <a
-            href="https://etherscan.io/address/0x25ed58c027921E14D86380eA2646E3a1B5C55A8b"
-            >etherscan contract</a
-          >
-          and try out the "ownerOf" field manually.
-        </p>
+        <p id="account"></p>
 
-        <p id="account">Your Account</p>
-
-        <form>
+        <form class="form-search">
           <div class="form-group">
             <label for="tokenid">Starting token id</label>
             <input
@@ -100,17 +90,31 @@
           </div>
           <div class="form-group">
             <button class="btn-success btn-ownerof">
-              Get first available ID
+              Iterate from given ID
             </button>
           </div>
         </form>
+
+        <form class="form-findids">
+          <div class="form-group">
+            <button class="btn-success btn-ownerof-first">
+              Find first 10 available IDs
+            </button>
+          </div>
+          <div class="form-group print">
+            <button class="btn-success btn-print">
+              Log taken
+            </button>
+          </div>
+        </form>
+
         <div id="result">Availability will show up here...</div>
-        <div id="errormessage" class="small">
+        <div id="link-to-etherscan">
           <a
             href="https://etherscan.io/address/0x25ed58c027921E14D86380eA2646E3a1B5C55A8b#writeContract"
             target="_blank"
             referrerpolicy="no-referrer"
-            >Claim your token here</a
+            >Claim your token at Etherscan here (opens new tab)</a
           >
         </div>
       </div>
@@ -127,8 +131,16 @@
       integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/"
       crossorigin="anonymous"
     ></script>
+    <script>
+      var urlParams = new URLSearchParams(window.location.search);
+      if(urlParams.has('admin')){
+        $(".form-search").css("display","block")
+        $(".print").css("display","block")
+      }
+    </script>
 
     <script src="web3.min.js"></script>
+    <script src="taken.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
