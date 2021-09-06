@@ -42,7 +42,6 @@ async function getOwner(id) {
 
 const available = ids.filter(notInTaken);
 
-let newTaken = false;
 for (i = 0; i < 25; i++) {
   let id = available[i];
   console.log("sjekker", id);
@@ -50,21 +49,18 @@ for (i = 0; i < 25; i++) {
     .then((res) => {
       console.log(id, "is now taken by", res);
       taken.push(id);
-      newTaken = true;
     })
     .catch((err) => {
       console.error(err.message);
     });
 }
 
-if (newTaken) {
-  const filteredTaken = taken.filter(unique);
-  const data = JSON.stringify({ taken: filteredTaken });
-  fs.writeFile("./build/taken.json", data, "utf8", (err) => {
-    if (err) {
-      console.log(`Error writing file: ${err}`);
-    } else {
-      console.log(`File is written successfully!`);
-    }
-  });
-}
+const filteredTaken = taken.filter(unique);
+const data = JSON.stringify({ taken: filteredTaken });
+fs.writeFile("./build/taken.json", data, "utf8", (err) => {
+  if (err) {
+    console.log(`Error writing file: ${err}`);
+  } else {
+    console.log(`File is written successfully!`);
+  }
+});
