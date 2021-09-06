@@ -59,17 +59,21 @@ App = {
     //$(document).on("click", ".btn-ownerof", App.handleOwnerOfAll);
     $(document).on("click", ".btn-ownerof", App.handleOwnerOfDelta);
     $(document).on("click", ".btn-print", App.handlePrint);
-    $(document).on("click", ".btn-ownerof-first", App.handlePrintFirstAvailable);
+    $(document).on(
+      "click",
+      ".btn-ownerof-first",
+      App.handlePrintFirstAvailable
+    );
   },
 
   handlePrintFirstAvailable(event) {
     event.preventDefault();
-	/*  uniqueTaken = taken.filter(unique);
-	  availableIds = ids.filter(notInTaken);
-	  var available = availableIds.filter(notInTaken);
-	  var list = available.filter((i, idx) => idx < 10);
-	  $("#result").html("Token IDs: " + list.join(", ") + " are claimable");
-*/
+    uniqueTaken = taken.filter(unique);
+    availableIds = ids.filter(notInTaken);
+    var available = availableIds.filter(notInTaken);
+    var list = available.filter((i, idx) => idx < 10);
+    $("#result").html("Token IDs: " + list.join(", ") + " are claimable");
+    /*
     fetch(
       "https://raw.githubusercontent.com/svenanders/devsrev/main/taken.json"
     )
@@ -81,7 +85,7 @@ App = {
         var available = availableIds.filter(notInTaken);
         var list = available.filter((i, idx) => idx < 10);
         $("#result").html("Token IDs: " + list.join(", ") + " are claimable");
-      });
+      });*/
   },
   handlePrint(event) {
     event.preventDefault();
@@ -103,19 +107,19 @@ App = {
 
   handleOwnerOfDelta: function (event) {
     event.preventDefault();
-    let idx=0;
-	  uniqueTaken = taken.filter(unique);
-	  availableIds = ids.filter(notInTaken);
+    let idx = 0;
+    uniqueTaken = taken.filter(unique);
+    availableIds = ids.filter(notInTaken);
 
-	  let ownerInterval = setInterval(()=>{
-	    tokenToCheck = availableIds[idx];
-	    checkOwnerOf(tokenToCheck);
-	    idx++;
-	    if(idx===10){
-		    clearInterval(this);
-		    clearInterval(ownerInterval);
-	    }
-    },500)
+    let ownerInterval = setInterval(() => {
+      tokenToCheck = availableIds[idx];
+      checkOwnerOf(tokenToCheck);
+      idx++;
+      if (idx === 10) {
+        clearInterval(this);
+        clearInterval(ownerInterval);
+      }
+    }, 500);
   },
 };
 

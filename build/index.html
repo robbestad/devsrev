@@ -42,10 +42,11 @@
       #result {
         margin: 2em 0;
       }
-      .form-findids{
+      .form-findids {
         margin-top: 1em;
       }
-      .form-search, .print{
+      .form-search,
+      .print {
         display: none;
       }
       footer {
@@ -71,9 +72,9 @@
       </div>
       <div class="container main">
         <p>
-          Token Ids can be any number between 1 and 7778. Press the button and find the first
-          10 available token ID. Numbers can be taken between each update, but the list is updated
-          regularly.
+          Token Ids can be any number between 1 and 7778. Press the button and
+          find the first 10 available token ID. Numbers can be taken between
+          each update, but the list is updated regularly.
         </p>
 
         <p id="account"></p>
@@ -102,9 +103,7 @@
             </button>
           </div>
           <div class="form-group print">
-            <button class="btn-success btn-print">
-              Log taken
-            </button>
+            <button class="btn-success btn-print">Log taken</button>
           </div>
         </form>
 
@@ -133,14 +132,14 @@
     ></script>
     <script>
       var urlParams = new URLSearchParams(window.location.search);
-      if(urlParams.has('admin')){
-        $(".form-search").css("display","block")
-        $(".print").css("display","block")
+      if (urlParams.has("admin")) {
+        $(".form-search").css("display", "block");
+        $(".print").css("display", "block");
       }
     </script>
     <script src="web3.min.js"></script>
     <script src="ids.js"></script>
-    <script src="taken.js"></script>
-    <script src="app.js"></script>
+    <script src="js/taken.js"></script>
+    <script src="js/app.js"></script>
   </body>
 </html>

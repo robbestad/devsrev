@@ -1,0 +1,24 @@
+{
+  "name": "public",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/svenanders/devsrev.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/svenanders/devsrev/issues"
+  },
+  "homepage": "https://github.com/svenanders/devsrev#readme",
+  "dependencies": {
+    "gulp": "^4.0.2",
+    "gulp-hash-src": "^0.1.6"
+  }
+}
