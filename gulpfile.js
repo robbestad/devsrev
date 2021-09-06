@@ -1,23 +1,23 @@
-var gulp = require("gulp");
-var hashsrc = require("gulp-hash-src");
-var clean = require("gulp-clean");
-var inject = require("gulp-inject-string");
-var index = function () {
+let gulp = require("gulp");
+let hashSrc = require("gulp-hash-src");
+let clean = require("gulp-clean");
+let injectString = require("gulp-inject-string");
+let index = function () {
   return gulp
     .src("build/index.html")
-    .pipe(hashsrc({ build_dir: ".", src_path: "../js", exts: [".js"] }))
+    .pipe(hashSrc({ build_dir: ".", src_path: "../js", exts: [".js"] }))
     .pipe(gulp.dest("publish"));
 };
-var copy = function () {
+let copy = function () {
   return gulp.src(["build/**/*"]).pipe(gulp.dest("publish"));
 };
-var trash = function () {
+let trash = function () {
   return gulp.src("publish", { read: false }).pipe(clean());
 };
-var date = function () {
+let date = function () {
   return gulp
     .src("publish/index.html")
-    .pipe(inject.prepend("\n<!-- Updated: " + Date() + " -->"))
+    .pipe(injectString.prepend("\n<!-- Updated: " + Date() + " -->"))
     .pipe(gulp.dest("publish"));
 };
 
