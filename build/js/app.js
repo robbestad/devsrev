@@ -28,7 +28,8 @@ App = {
   handlePrintFirstAvailable(event) {
     event.preventDefault();
     fetch(
-      "https://raw.githubusercontent.com/svenanders/devsrev/main/build/taken.json"
+      "https://raw.githubusercontent.com/svenanders/devsrev/main/build/taken.json",
+      { cache: "no-cache" }
     )
       .then((data) => data.json())
       .then((data) => {
