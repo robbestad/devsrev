@@ -1,6 +1,5 @@
 const Web3 = require("web3");
 const Contract = require("./build/Contract.abi.json");
-//const secrets = require("./secrets.json");
 
 let getAvailable = require("./backend-methods").getAvailable;
 let getTaken = require("./backend-methods").getTaken;
@@ -19,7 +18,6 @@ const web3 = new Web3(
     `https://:${APISECRET}@mainnet.infura.io/v3/${APIKEY}`
   )
 );
-const addressFrom = secrets.address;
 let contractABI = JSON.parse(Contract.result);
 let MyContract = new web3.eth.Contract(
   contractABI,
