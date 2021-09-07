@@ -16,14 +16,8 @@ let MyContract = new web3.eth.Contract(
   "0x25ed58c027921e14d86380ea2646e3a1b5c55a8b",
   { from: addressFrom }
 );
-let uniqueTaken = taken.filter(unique);
-
 function unique(value, index, self) {
   return self.indexOf(value) === index;
-}
-
-function notInTaken(value, index, self) {
-  return !uniqueTaken.includes(value);
 }
 
 async function getOwner(id) {
@@ -40,8 +34,8 @@ async function getOwner(id) {
   });
 }
 
-const available = ids.filter(notInTaken);
-for (i = 0; i < 250; i++) {
+const available = ids.filter((value) => !taken.includes(value));
+for (i = 0; i < 25; i++) {
   let id = available[i];
   getOwner(id)
     .then((res) => {
@@ -49,7 +43,7 @@ for (i = 0; i < 250; i++) {
       taken.push(id);
     })
     .catch((err) => {
-      console.error(err.message);
+      console.error(`${id} ${err.message}`);
     });
 }
 

@@ -39,7 +39,7 @@ App = {
         var available = availableIds.filter(notInTaken);
         var list = available.filter((i, idx) => idx < 20);
         $("#result").html(
-          "The following token IDs are claimable:<br/> " + available.join(", ")
+          "The following token IDs are claimable:<br/> " + list.join(", ")
         );
       });
   },
