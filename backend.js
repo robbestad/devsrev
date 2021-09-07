@@ -1,9 +1,15 @@
 const Web3 = require("web3");
 const Contract = require("./build/Contract.abi.json");
 const secrets = require("./secrets.json");
-let taken = require("./build/taken.json").taken;
-const ids = require("./build/ids.json").ids;
+
+let getAvailable = require("./backend-methods").getAvailable;
+let getTaken = require("./backend-methods").getTaken;
+let ids = require("./backend-methods").ids;
+let taken = getTaken();
+let available = getAvailable();
+
 const fs = require("fs");
+const { makeAvailableList } = require("./backend-methods");
 const web3 = new Web3(
   new Web3.providers.HttpProvider(
     `https://:${secrets.secret}@mainnet.infura.io/v3/${secrets.apikey}`
@@ -16,6 +22,7 @@ let MyContract = new web3.eth.Contract(
   "0x25ed58c027921e14d86380ea2646e3a1b5c55a8b",
   { from: addressFrom }
 );
+
 function unique(value, index, self) {
   return self.indexOf(value) === index;
 }
@@ -34,18 +41,17 @@ async function getOwner(id) {
   });
 }
 
-const available = ids.filter((value) => !taken.includes(value));
-for (i = 0; i < 25; i++) {
-  let id = available[i];
-  getOwner(id)
+let list = makeAvailableList();
+list.forEach((value) => {
+  getOwner(value)
     .then((res) => {
-      //console.log(id, "is now taken by", res);
-      taken.push(id);
+      console.log(value, "is now taken by", res);
+      taken.push(value);
     })
     .catch((err) => {
-      console.error(`${id} ${err.message}`);
+      console.error(`${value} ${err.message}`);
     });
-}
+});
 
 setTimeout(() => {
   const filteredTaken = taken.filter(unique);
@@ -57,4 +63,4 @@ setTimeout(() => {
       console.log(`File is written successfully!`);
     }
   });
-}, 15000);
+}, 5000);
