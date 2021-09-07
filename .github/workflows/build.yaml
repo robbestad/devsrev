@@ -30,8 +30,8 @@ jobs:
         run: |-
           npm install
           npm test
-          npx gulp github
           node backend.js
+          npx gulp github
           ls
           cd publish
           npm install -g surge
