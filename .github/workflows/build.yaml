@@ -37,8 +37,8 @@ jobs:
           echo "---- ls build"
           ls build
           mv build/taken2.json build/taken.json
-          git add token.json
-          git commit -m"updated token.json"
+          git add build/taken.json
+          git commit -m"updated taken.json"
           git push origin main
           npx gulp github
           cd publish
