@@ -39,6 +39,9 @@ jobs:
           echo "---- ls build"
           ls build
           mv build/taken2.json build/taken.json
+          git config --global user.name 'Sven Anders Robbestad'
+          git config --global user.email 'robbestad@gmail.com'
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
           git add build/taken.json
           git commit -m"updated taken.json"
           git push origin main
