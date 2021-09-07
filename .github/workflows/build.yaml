@@ -28,7 +28,9 @@ jobs:
         run: |-
           ls
           npm install
-          npm run build
+          npm test
+          npx gulp github
+          node backend.js
 
       - name: Deploy to devsrev.surge.sh
         uses: dswistowski/surge-sh-action@v1

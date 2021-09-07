@@ -22,4 +22,6 @@ let date = function () {
 };
 
 const build = gulp.series(trash, copy, index, date);
+const buildGithub = gulp.series(copy, index, date);
 exports.default = build;
+exports.github = buildGithub;

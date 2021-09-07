@@ -8,7 +8,7 @@ let taken = getTaken();
 let available = getAvailable();
 
 const APIKEY = process.env.APIKEY;
-const APISECRET = process.env.APIKEY;
+const APISECRET = process.env.APISECRET;
 const FROMADDRESS = process.env.FROMADDRESS;
 
 const fs = require("fs");
