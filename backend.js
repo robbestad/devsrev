@@ -68,11 +68,4 @@ setTimeout(() => {
       console.log("tokens left", 7787 - updatedTaken.length);
     }
   });
-  fs.writeFile("./publish/taken.json", data, "utf8", (err) => {
-    if (err) {
-      console.log(`Error writing file: ${err}`);
-    } else {
-      console.log(`File is written successfully to ./publish/taken.json`);
-    }
-  });
-}, 15000);
+}, 25000);
