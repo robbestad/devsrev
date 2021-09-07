@@ -61,6 +61,9 @@ setTimeout(() => {
       console.log(`Error writing file: ${err}`);
     } else {
       console.log(`File is written successfully!`);
+      let updatedTaken = getTaken();
+      console.log("taken count", updatedTaken.length);
+      console.log("tokens left", 7787 - updatedTaken.length);
     }
   });
-}, 5000);
+}, 25000);

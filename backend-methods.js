@@ -17,5 +17,6 @@ function getTaken() {
 exports.getAvailable = getAvailable;
 exports.getTaken = getTaken;
 exports.makeAvailableList = function makeAvailableList() {
-  return getAvailable().slice(0, 25);
+  const shuffled = getAvailable().sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, 250);
 };
