@@ -1,4 +1,4 @@
-name: CI build
+name: Publish to surge
 on:
   workflow_dispatch:
   repository_dispatch:
