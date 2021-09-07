@@ -28,8 +28,9 @@ jobs:
 
       - name: Build
         run: |-
-          yarn install
-          yarn build
+          ls
+          npm install
+          npm run build
 
       - name: Deploy to foo-bar.surge.sh
         uses: dswistowski/surge-sh-action@v1
