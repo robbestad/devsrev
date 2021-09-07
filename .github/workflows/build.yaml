@@ -30,15 +30,15 @@ jobs:
         run: |-
           npm ci
           npm test
-          node backend.js
+          time node backend.js
           sleep 10
-          npx gulp github
           ls
           ls build
           mv build/token2.json build/token.json
           git add token.json
           git commit -m"updated token.json"
           git push origin main
+          npx gulp github
           cd publish
           ls
           npm install -g surge
