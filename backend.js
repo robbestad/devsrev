@@ -62,10 +62,17 @@ setTimeout(() => {
     if (err) {
       console.log(`Error writing file: ${err}`);
     } else {
-      console.log(`File is written successfully!`);
+      console.log(`File is written successfully to ./build/taken.json`);
       let updatedTaken = getTaken();
       console.log("taken count", updatedTaken.length);
       console.log("tokens left", 7787 - updatedTaken.length);
+    }
+  });
+  fs.writeFile("./publish/taken.json", data, "utf8", (err) => {
+    if (err) {
+      console.log(`Error writing file: ${err}`);
+    } else {
+      console.log(`File is written successfully to ./publish/taken.json`);
     }
   });
 }, 15000);

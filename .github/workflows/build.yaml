@@ -34,5 +34,6 @@ jobs:
           npx gulp github
           ls
           cd publish
+          ls
           npm install -g surge
           surge ./ --token ${{ secrets.SURGE_TOKEN }}
