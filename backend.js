@@ -58,11 +58,11 @@ list.forEach((value) => {
 setTimeout(() => {
   const filteredTaken = taken.filter(unique);
   const data = JSON.stringify({ taken: filteredTaken });
-  fs.writeFile("./build/taken2.json", data, "utf8", (err) => {
+  fs.writeFile("build/taken2.json", data, "utf8", (err) => {
     if (err) {
       console.log(`Error writing file: ${err}`);
     } else {
-      console.log(`File is written successfully to ./build/taken.json`);
+      console.log(`File is written successfully to build/taken2.json`);
       let updatedTaken = getTaken();
       console.log("taken count", updatedTaken.length);
       console.log("tokens left", 7787 - updatedTaken.length);
