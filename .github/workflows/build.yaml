@@ -31,6 +31,7 @@ jobs:
           npm ci
           npm test
           node backend.js
+          sleep 10
           npx gulp github
           ls
           mv build/token2.json build/token.json
