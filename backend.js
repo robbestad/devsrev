@@ -68,4 +68,4 @@ setTimeout(() => {
       console.log("tokens left", 7787 - updatedTaken.length);
     }
   });
-}, 25000);
+}, 15000);

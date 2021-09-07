@@ -1,11 +1,8 @@
 name: CI build
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - "**"
   repository_dispatch:
-    types: build_application
+    types: publish_application
 
 jobs:
   build:
@@ -23,14 +20,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Build
-        run: |-
-          ls
-          npm install
-          npm test
-          npx gulp github
-          node backend.js
 
       - name: Deploy to devsrev.surge.sh
         uses: dswistowski/surge-sh-action@v1
