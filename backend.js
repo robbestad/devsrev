@@ -8,11 +8,15 @@ let ids = require("./backend-methods").ids;
 let taken = getTaken();
 let available = getAvailable();
 
+const APIKEY = process.env.APIKEY || secrets.apikey;
+const APISECRET = process.env.APIKEY || secrets.secret;
+const FROMADDRESS = process.env.FROMADDRESS || secrets.address;
+
 const fs = require("fs");
 const { makeAvailableList } = require("./backend-methods");
 const web3 = new Web3(
   new Web3.providers.HttpProvider(
-    `https://:${secrets.secret}@mainnet.infura.io/v3/${secrets.apikey}`
+    `https://:${APISECRET}@mainnet.infura.io/v3/${APIKEY}`
   )
 );
 const addressFrom = secrets.address;
@@ -20,7 +24,7 @@ let contractABI = JSON.parse(Contract.result);
 let MyContract = new web3.eth.Contract(
   contractABI,
   "0x25ed58c027921e14d86380ea2646e3a1b5c55a8b",
-  { from: addressFrom }
+  { from: FROMADDRESS }
 );
 
 function unique(value, index, self) {

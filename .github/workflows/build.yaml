@@ -1,0 +1,40 @@
+name: CI build
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "**"
+  repository_dispatch:
+    types: build_application
+
+jobs:
+  build:
+    name: Check out the repos
+    runs-on: ubuntu-latest
+
+    env:
+      HASH: $(git rev-parse --short "$GITHUB_SHA")
+      BRANCH: ${GITHUB_REF##*/}
+      SERVICE_NAME: devsrev
+      APIKEY: ${{ secrets.APIKEY }}
+      APISECRET: ${{ secrets.APISECRET }}
+      FROMADDRESS: ${{ secrets.FROMADDRESS }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: main
+
+      - name: Build
+        run: |-
+          yarn install
+          yarn build
+
+      - name: Deploy to foo-bar.surge.sh
+        uses: dswistowski/surge-sh-action@v1
+        with:
+          domain: "devsrev.surge.sh"
+          project: "publish"
+          login: ${{ secrets.SURGE_LOGIN }}
+          token: ${{ secrets.SURGE_TOKEN }}
