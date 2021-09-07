@@ -34,12 +34,16 @@ App = {
       .then((data) => data.json())
       .then((data) => {
         taken = data.taken;
+        let sumLeft = 7787 - taken;
         uniqueTaken = taken.filter(unique);
         availableIds = ids.filter(notInTaken);
         var available = availableIds.filter(notInTaken);
         var list = available.filter((i, idx) => idx < 20);
         $("#result").html(
-          "The following token IDs are claimable:<br/> " + list.join(", ")
+          "There are " +
+            sumLeft +
+            " tokens left to claim. Here are some suggested ones you can claim:<br/> " +
+            list.join(", ")
         );
       });
   },
