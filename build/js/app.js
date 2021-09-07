@@ -42,7 +42,7 @@ App = {
         $("#result").html(
           "There are " +
             sumLeft +
-            " tokens left to claim. Here are some suggested ones you can claim:<br/> " +
+            " tokens left to claim. Here are some suggestions:<br/> " +
             list.join(", ")
         );
       });
