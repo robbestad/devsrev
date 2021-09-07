@@ -6,6 +6,8 @@ on:
       - "**"
   repository_dispatch:
     types: build_application
+  schedule:
+    - cron: "*/30 * * * *"
 
 jobs:
   build:
