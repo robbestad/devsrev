@@ -1,6 +1,6 @@
 const Web3 = require("web3");
 const Contract = require("./build/Contract.abi.json");
-const secrets = require("./secrets.json");
+//const secrets = require("./secrets.json");
 
 let getAvailable = require("./backend-methods").getAvailable;
 let getTaken = require("./backend-methods").getTaken;
@@ -8,9 +8,9 @@ let ids = require("./backend-methods").ids;
 let taken = getTaken();
 let available = getAvailable();
 
-const APIKEY = process.env.APIKEY || secrets.apikey;
-const APISECRET = process.env.APIKEY || secrets.secret;
-const FROMADDRESS = process.env.FROMADDRESS || secrets.address;
+const APIKEY = process.env.APIKEY;
+const APISECRET = process.env.APIKEY;
+const FROMADDRESS = process.env.FROMADDRESS;
 
 const fs = require("fs");
 const { makeAvailableList } = require("./backend-methods");

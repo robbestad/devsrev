@@ -30,7 +30,7 @@ jobs:
           npm install
           npm run build
 
-      - name: Deploy to foo-bar.surge.sh
+      - name: Deploy to devsrev.surge.sh
         uses: dswistowski/surge-sh-action@v1
         with:
           domain: "devsrev.surge.sh"
