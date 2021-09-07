@@ -31,10 +31,12 @@ jobs:
           npm ci
           npm test
           time node backend.js
-          sleep 10
+          #sleep 10
+          echo "---- ls"
           ls
+          echo "---- ls build"
           ls build
-          mv build/token2.json build/token.json
+          mv build/taken2.json build/taken.json
           git add token.json
           git commit -m"updated token.json"
           git push origin main
