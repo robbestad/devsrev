@@ -41,10 +41,8 @@ async function getOwner(id) {
 }
 
 const available = ids.filter(notInTaken);
-for (i = 0; i < 2000; i++) {
-  //let id = available[i];
-  //console.log("sjekker", id);
-  let id = i;
+for (i = 0; i < 250; i++) {
+  let id = available[i];
   getOwner(id)
     .then((res) => {
       //console.log(id, "is now taken by", res);
@@ -65,4 +63,4 @@ setTimeout(() => {
       console.log(`File is written successfully!`);
     }
   });
-}, 25000);
+}, 15000);
