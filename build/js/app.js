@@ -57,7 +57,7 @@ App = {
         uniqueTaken = taken.filter(unique);
         availableIds = ids.filter(notInTaken);
         let available = availableIds.filter(notInTaken);
-        let goal = $(".tokenidinput").val();
+        let goal = $(".tokenidinput").val() || 1;
         let closest = available.reduce(function (prev, curr) {
           return Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev;
         });
