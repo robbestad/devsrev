@@ -46,9 +46,7 @@ App = {
 
   handleFindClosest(event) {
     event.preventDefault();
-    fetch(
-      "https://raw.githubusercontent.com/svenanders/devsrev/main/build/taken.json"
-    )
+    fetch("./taken.json")
       .then((data) => data.json())
       .then((data) => {
         taken = data.taken;
