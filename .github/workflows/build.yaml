@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Check out the repos
+    name: Check out and run
     runs-on: ubuntu-latest
 
     env:
