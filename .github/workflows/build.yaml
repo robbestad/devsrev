@@ -26,16 +26,11 @@ jobs:
 
       - name: Build
         run: |-
-          ls
           npm install
           npm test
           npx gulp github
           node backend.js
-
-      - name: Deploy to devsrev.surge.sh
-        uses: dswistowski/surge-sh-action@v1
-        with:
-          domain: "devsrev.surge.sh"
-          project: "./publish"
-          login: ${{ secrets.SURGE_LOGIN }}
-          token: ${{ secrets.SURGE_TOKEN }}
+          ls
+          cd publish
+          npm install -g surge
+          surge ./ --token ${{ secrets.SURGE_TOKEN }}
