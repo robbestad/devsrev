@@ -27,10 +27,7 @@ App = {
 
   handlePrintFirstAvailable(event) {
     event.preventDefault();
-    fetch(
-      "https://raw.githubusercontent.com/svenanders/devsrev/main/build/taken.json",
-      { cache: "no-cache" }
-    )
+    fetch("./taken.json", { cache: "no-cache" })
       .then((data) => data.json())
       .then((data) => {
         taken = data.taken;
@@ -39,12 +36,7 @@ App = {
         let sumLeft = 7787 - taken.length;
         var available = availableIds.filter(notInTaken);
         var list = available.filter((i, idx) => idx < 20);
-        $("#result").html(
-          "There are " +
-            sumLeft +
-            " tokens left to claim. Here are some suggestions:<br/> " +
-            list.join(", ")
-        );
+        $("#result").html("Here are some suggestions:<br/> " + list.join(", "));
       });
   },
 
