@@ -43,5 +43,9 @@ jobs:
           npx gulp github
           cd publish
           ls
-          npm install -g surge
-          surge ./ --token ${{ secrets.SURGE_TOKEN }}
+          if [[ `git status --porcelain --untracked-files=no` ]]; then
+            npm install -g surge
+            surge ./ --token ${{ secrets.SURGE_TOKEN }}
+          else
+            echo "Not publishing as no files were changed"
+          fi
