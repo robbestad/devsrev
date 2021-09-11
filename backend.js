@@ -79,22 +79,24 @@ let metaFile = "build/meta.json";
   await getSupply()
     .then((res) => {
       totalSupply = parseInt(res);
-      fs.writeFile(
-        metaFile,
-        JSON.stringify({
-          totalSupply: totalSupply,
-          lastChecked: totalSupply,
-          remaining: 7778 - totalSupply,
-        }),
-        "utf8",
-        (err) => {
-          if (err) {
-            console.log(`Error writing ${metaFile} ${err}`);
-          } else {
-            console.log(`${metaFile} is written successfully`);
+      if (totalSupply > lastChecked) {
+        fs.writeFile(
+          metaFile,
+          JSON.stringify({
+            totalSupply: totalSupply,
+            lastChecked: totalSupply,
+            remaining: 7778 - totalSupply,
+          }),
+          "utf8",
+          (err) => {
+            if (err) {
+              console.log(`Error writing ${metaFile} ${err}`);
+            } else {
+              console.log(`${metaFile} is written successfully`);
+            }
           }
-        }
-      );
+        );
+      }
     })
     .catch((err) => {
       console.error(`totalSupply ${err.message}`);
@@ -102,6 +104,7 @@ let metaFile = "build/meta.json";
   if (totalSupply > lastChecked) {
     let newTaken = [];
     let list = makeAvailableList({ start: lastChecked, stop: totalSupply });
+
     async function fetchTokenIds() {
       for (const value of list) {
         await getOwnerByIndex(value)
@@ -118,16 +121,6 @@ let metaFile = "build/meta.json";
     console.log({ newTaken });
     taken = taken.concat(newTaken);
 
-    const filteredTaken = taken.filter(unique);
-    const data = JSON.stringify({ taken: sortAlpha(filteredTaken) });
-    fs.writeFile("build/taken.json", data, "utf8", (err) => {
-      if (err) {
-        console.log(`Error writing file: ${err}`);
-      } else {
-        console.log(`File is written successfully to build/taken.json`);
-      }
-    });
-  } else {
     const filteredTaken = taken.filter(unique);
     const data = JSON.stringify({ taken: sortAlpha(filteredTaken) });
     fs.writeFile("build/taken.json", data, "utf8", (err) => {

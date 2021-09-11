@@ -36,12 +36,15 @@ jobs:
           git config --global user.name 'Sven Anders Robbestad'
           git config --global user.email 'robbestad@gmail.com'
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+          echo "---git diff"
+          git diff build/taken.json
+          git diff build/meta.json
+          echo "---/git diff"
           git add build/taken.json
           git add build/meta.json
           git commit -m"updated json files"
           git push origin main
           npx gulp github
-          git status
           if [[ `git status --porcelain --untracked-files=no` ]]; then
             cd publish
             npm install -g surge
