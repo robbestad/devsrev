@@ -33,7 +33,7 @@ function unique(value, index, self) {
 async function getSupply(id) {
   return new Promise((resolve, reject) => {
     MyContract.methods
-      .totalSupplu()
+      .totalSupply()
       .call()
       .then(function (result) {
         resolve(result);
@@ -70,22 +70,22 @@ list.forEach((value) => {
     });
 });
 
-let totalSupply=0;
-let metaFile="build/meta.json";
+let totalSupply = 0;
+let metaFile = "build/meta.json";
 getSupply()
-.then((res) => {
-  totalSupply=res;
-  fs.writeFile(metaFile, {totalSupply: totalSupply}, "utf8", (err) => {
-    if (err) {
-      console.log(`Error writing ${metaFile} ${err}`);
-    } else {
-      console.log(`${metaFile} is written successfully`);
-    }
+  .then((res) => {
+    totalSupply = res;
+    fs.writeFile(metaFile, { totalSupply: totalSupply }, "utf8", (err) => {
+      if (err) {
+        console.log(`Error writing ${metaFile} ${err}`);
+      } else {
+        console.log(`${metaFile} is written successfully`);
+      }
+    });
+  })
+  .catch((err) => {
+    console.error(`totalSupply ${err.message}`);
   });
-})
-.catch((err) => {
-  console.error(`totalSupply ${err.message}`);
-});
 
 setTimeout(() => {
   const filteredTaken = taken.filter(unique);
