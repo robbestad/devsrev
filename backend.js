@@ -106,8 +106,7 @@ let metaFile = "build/meta.json";
       for (const value of list) {
         await getOwnerByIndex(value)
           .then((res) => {
-            console.log("got result", res);
-            newTaken.push(res);
+            newTaken.push(parseInt(res, 10));
           })
           .catch((err) => {
             console.log(err.message);
