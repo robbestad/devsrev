@@ -2,6 +2,7 @@ const Web3 = require("web3");
 const Contract = require("./build/Contract.abi.json");
 
 let getAvailable = require("./backend-methods").getAvailable;
+let sortAlpha = require("./backend-methods").sortAlpha;
 let getTaken = require("./backend-methods").getTaken;
 let ids = require("./backend-methods").ids;
 let taken = getTaken();
@@ -57,7 +58,7 @@ list.forEach((value) => {
 
 setTimeout(() => {
   const filteredTaken = taken.filter(unique);
-  const data = JSON.stringify({ taken: filteredTaken.sort() });
+  const data = JSON.stringify({ taken: sortAlpha(filteredTaken) });
   fs.writeFile("build/taken2.json", data, "utf8", (err) => {
     if (err) {
       console.log(`Error writing file: ${err}`);
