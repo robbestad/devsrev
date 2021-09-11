@@ -38,7 +38,8 @@ jobs:
           git config --global user.email 'robbestad@gmail.com'
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
           git add build/taken.json
-          git commit -m"updated taken.json"
+          git add build/meta.json
+          git commit -m"updated json files"
           git push origin main
           npx gulp github
           cd publish
