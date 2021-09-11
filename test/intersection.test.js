@@ -17,8 +17,23 @@ describe("Token locator", function () {
     it("should not return taken", function () {
       expect(getTaken()).to.be.an("array").that.include(493);
     });
-    it("should create loop list", function () {
-      expect(makeAvailableList()).to.be.an("array").of.length(40);
+    it("should create a short loop list", function () {
+      let lastChecked = 101;
+      let totalSupply = 102;
+      let checkList = makeAvailableList({
+        start: lastChecked,
+        stop: totalSupply,
+      });
+      expect(checkList).to.be.an("array").of.length(1);
+    });
+    it("should create a large loop list", function () {
+      let lastChecked = 100;
+      let totalSupply = 200;
+      let checkList = makeAvailableList({
+        start: lastChecked,
+        stop: totalSupply,
+      });
+      expect(checkList).to.be.an("array").of.length(100);
     });
     it("should sort taken list", function () {
       let taken = getTaken();

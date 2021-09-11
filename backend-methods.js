@@ -25,7 +25,10 @@ exports.getAvailable = getAvailable;
 
 exports.getTaken = getTaken;
 
-exports.makeAvailableList = function makeAvailableList() {
-  const shuffled = getAvailable().sort(() => 0.5 - Math.random());
-  return getAvailable().slice(0, 15).concat(shuffled.slice(0, 25));
+exports.makeAvailableList = function makeAvailableList({ start, stop }) {
+  let list = [];
+  for (let i = start; i < stop; i++) list.push(i);
+  return list;
+  //const shuffled = getAvailable().sort(() => 0.5 - Math.random());
+  //return getAvailable().slice(0, 15).concat(shuffled.slice(0, 25));
 };

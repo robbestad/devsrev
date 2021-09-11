@@ -100,10 +100,8 @@ let metaFile = "build/meta.json";
       console.error(`totalSupply ${err.message}`);
     });
   if (totalSupply > lastChecked) {
-    let list = [];
-    for (let i = lastChecked - 1; i < totalSupply; i++) list.push(i);
     let newTaken = [];
-
+    let list = makeAvailableList({ start: lastChecked, stop: totalSupply });
     async function fetchTokenIds() {
       for (const value of list) {
         await getOwnerByIndex(value)
