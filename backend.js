@@ -75,13 +75,18 @@ let metaFile = "build/meta.json";
 getSupply()
   .then((res) => {
     totalSupply = res;
-    fs.writeFile(metaFile, { totalSupply: totalSupply }, "utf8", (err) => {
-      if (err) {
-        console.log(`Error writing ${metaFile} ${err}`);
-      } else {
-        console.log(`${metaFile} is written successfully`);
+    fs.writeFile(
+      metaFile,
+      { totalSupply: JSON.stringify(totalSupply) },
+      "utf8",
+      (err) => {
+        if (err) {
+          console.log(`Error writing ${metaFile} ${err}`);
+        } else {
+          console.log(`${metaFile} is written successfully`);
+        }
       }
-    });
+    );
   })
   .catch((err) => {
     console.error(`totalSupply ${err.message}`);
