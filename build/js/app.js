@@ -34,9 +34,9 @@ App = {
       .then((data) => data.json())
       .then((data) => {
         taken = data.taken;
-        let sumLeft = 7787 - taken.length;
         uniqueTaken = taken.filter(unique);
         availableIds = ids.filter(notInTaken);
+        let sumLeft = 7787 - taken.length;
         var available = availableIds.filter(notInTaken);
         var list = available.filter((i, idx) => idx < 20);
         $("#result").html(
