@@ -1,4 +1,5 @@
 const R = require("ramda");
+const sortAlpha = R.sortBy(R.identity);
 let taken = require("./build/taken.json").taken;
 let ids = [];
 for (let i = 1; i < 7788; i++) ids.push(i);
@@ -8,11 +9,10 @@ function getAvailable() {
   let filteredIds = ids.filter((value) => {
     if (!taken.includes(value)) return value;
   });
-  return filteredIds.sort();
+  return sortAlpha(filteredIds);
 }
 
 function getTaken() {
-  const sortAlpha = R.sortBy(R.identity);
   return sortAlpha(taken);
 }
 
