@@ -14,7 +14,7 @@ describe("Token locator", function () {
       expect(ids()).to.be.an("array").of.length(7787);
     });
     it("should not return taken", function () {
-      expect(getTaken()).to.be.an("array").that.include(300);
+      expect(getTaken()).to.be.an("array").that.include(493);
     });
     it("should create loop list", function () {
       expect(makeAvailableList()).to.be.an("array").of.length(40);

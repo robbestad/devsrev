@@ -57,7 +57,7 @@ list.forEach((value) => {
 
 setTimeout(() => {
   const filteredTaken = taken.filter(unique);
-  const data = JSON.stringify({ taken: filteredTaken });
+  const data = JSON.stringify({ taken: filteredTaken.sort() });
   fs.writeFile("build/taken2.json", data, "utf8", (err) => {
     if (err) {
       console.log(`Error writing file: ${err}`);
