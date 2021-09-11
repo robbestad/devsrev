@@ -71,5 +71,11 @@ App = {
 $(function () {
   $(window).load(function () {
     App.init();
+
+    fetch("./meta.json")
+      .then((data) => data.json())
+      .then((data) => {
+        $("#totalsupply").html(`Remaining tokens: ${data.remaining}`);
+      });
   });
 });

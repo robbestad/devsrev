@@ -126,8 +126,6 @@ let metaFile = "build/meta.json";
         console.log(`Error writing file: ${err}`);
       } else {
         console.log(`File is written successfully to build/taken.json`);
-        let updatedTaken = getTaken();
-        console.log("tokens taken", totalSupply);
       }
     });
   }
