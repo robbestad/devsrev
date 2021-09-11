@@ -109,7 +109,9 @@ let metaFile = "build/meta.json";
       for (const value of list) {
         await getOwnerByIndex(value)
           .then((res) => {
-            newTaken.push(parseInt(res, 10));
+            let tokenId = parseInt(res, 10);
+            console.log("newly minted", tokenId);
+            newTaken.push(tokenId);
           })
           .catch((err) => {
             console.log(err.message);
@@ -118,7 +120,6 @@ let metaFile = "build/meta.json";
     }
 
     await fetchTokenIds();
-    console.log({ newTaken });
     taken = taken.concat(newTaken);
 
     const filteredTaken = taken.filter(unique);
