@@ -5,13 +5,14 @@ for (let i = 1; i < 7788; i++) ids.push(i);
 exports.ids = () => ids;
 
 function getAvailable() {
-  return ids.sort().filter((value) => {
+  let filteredIds= ids.filter((value) => {
     if (!taken.includes(value)) return value;
   });
+  return filteredIds.sort();
 }
 
 function getTaken() {
-  return taken;
+  return taken.sort();
 }
 
 exports.getAvailable = getAvailable;
