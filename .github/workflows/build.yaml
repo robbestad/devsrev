@@ -42,10 +42,10 @@ jobs:
           echo "---/git diff"
           git add build/taken.json
           git add build/meta.json
-          git commit -m"updated json files"
-          git push origin main
-          npx gulp github
           if [[ `git status --porcelain --untracked-files=no` ]]; then
+            git commit -m"updated json files"
+            git push origin main
+            npx gulp github
             cd publish
             npm install -g surge
             surge ./ --token ${{ secrets.SURGE_TOKEN }}
