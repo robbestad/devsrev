@@ -1,15 +1,15 @@
 const R = require("ramda");
-exports.sortAlpha = sortAlpha = R.sortBy(R.identity);
 let taken = require("./build/taken.json").taken;
+exports.sortAlpha = sortAlpha = R.sortBy(R.identity);
+
 let ids = [];
 for (let i = 1; i < 7788; i++) ids.push(i);
 exports.ids = () => ids;
 
 function getAvailable() {
-  let filteredIds = ids.filter((value) => {
+  return sortAlpha(ids.filter((value) => {
     if (!taken.includes(value)) return value;
-  });
-  return sortAlpha(filteredIds);
+  }));
 }
 
 function getTaken() {
@@ -17,8 +17,9 @@ function getTaken() {
 }
 
 exports.getAvailable = getAvailable;
+
 exports.getTaken = getTaken;
+
 exports.makeAvailableList = function makeAvailableList() {
-  const shuffled = getAvailable().sort(() => 0.5 - Math.random());
-  return getAvailable().slice(0, 5).concat(shuffled.slice(0, 35));
+  return getAvailable().sort(() => 0.5 - Math.random()).slice(0, 5).concat(shuffled.slice(0, 35));
 };

@@ -30,6 +30,20 @@ function unique(value, index, self) {
   return self.indexOf(value) === index;
 }
 
+async function getSupply(id) {
+  return new Promise((resolve, reject) => {
+    MyContract.methods
+      .totalSupplu()
+      .call()
+      .then(function (result) {
+        resolve(result);
+      })
+      .catch(function (error) {
+        reject(error);
+      });
+  });
+}
+
 async function getOwner(id) {
   return new Promise((resolve, reject) => {
     MyContract.methods
@@ -56,6 +70,23 @@ list.forEach((value) => {
     });
 });
 
+let totalSupply=0;
+let metaFile="build/meta.json";
+getSupply()
+.then((res) => {
+  totalSupply=res;
+  fs.writeFile(metaFile, {totalSupply: totalSupply}, "utf8", (err) => {
+    if (err) {
+      console.log(`Error writing ${metaFile} ${err}`);
+    } else {
+      console.log(`${metaFile} is written successfully`);
+    }
+  });
+})
+.catch((err) => {
+  console.error(`totalSupply ${err.message}`);
+});
+
 setTimeout(() => {
   const filteredTaken = taken.filter(unique);
   const data = JSON.stringify({ taken: sortAlpha(filteredTaken) });
@@ -67,6 +98,7 @@ setTimeout(() => {
       let updatedTaken = getTaken();
       console.log("taken count", updatedTaken.length);
       console.log("tokens left", 7787 - updatedTaken.length);
+      console.log("tokens left", totalSupply);
     }
   });
 }, 10000);
