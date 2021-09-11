@@ -4,16 +4,16 @@ const Contract = require("./build/Contract.abi.json");
 let getAvailable = require("./backend-methods").getAvailable;
 let sortAlpha = require("./backend-methods").sortAlpha;
 let getTaken = require("./backend-methods").getTaken;
-let ids = require("./backend-methods").ids;
+let lastChecked = require("./backend-methods").lastChecked;
+
 let taken = getTaken();
-let available = getAvailable();
 
 const APIKEY = process.env.APIKEY;
 const APISECRET = process.env.APISECRET;
 const FROMADDRESS = process.env.FROMADDRESS;
 
 const fs = require("fs");
-const { makeAvailableList } = require("./backend-methods");
+const { makeAvailableList, getStartStop } = require("./backend-methods");
 const web3 = new Web3(
   new Web3.providers.HttpProvider(
     `https://:${APISECRET}@mainnet.infura.io/v3/${APIKEY}`
@@ -58,52 +58,80 @@ async function getOwner(id) {
   });
 }
 
-let list = makeAvailableList();
-list.forEach((value) => {
-  getOwner(value)
-    .then((res) => {
-      console.log(value, "is now taken by", res);
-      taken.push(value);
-    })
-    .catch((err) => {
-      console.error(`${value} ${err.message}`);
-    });
-});
+async function getOwnerByIndex(index) {
+  console.log("calling getOwnerByIndex for ", index);
+  return new Promise((resolve, reject) => {
+    MyContract.methods
+      .tokenByIndex(index)
+      .call()
+      .then(function (result) {
+        resolve(result);
+      })
+      .catch(function (error) {
+        reject(error);
+      });
+  });
+}
 
 let totalSupply = 0;
 let metaFile = "build/meta.json";
-getSupply()
-  .then((res) => {
-    totalSupply = res;
-    fs.writeFile(
-      metaFile,
-      { totalSupply: JSON.stringify(totalSupply) },
-      "utf8",
-      (err) => {
-        if (err) {
-          console.log(`Error writing ${metaFile} ${err}`);
-        } else {
-          console.log(`${metaFile} is written successfully`);
+console.log(lastChecked);
+(async function () {
+  await getSupply()
+    .then((res) => {
+      totalSupply = parseInt(res);
+      fs.writeFile(
+        metaFile,
+        JSON.stringify({
+          totalSupply: totalSupply,
+          lastChecked: totalSupply,
+          remaining: 7778 - totalSupply,
+        }),
+        "utf8",
+        (err) => {
+          if (err) {
+            console.log(`Error writing ${metaFile} ${err}`);
+          } else {
+            console.log(`${metaFile} is written successfully`);
+          }
         }
-      }
-    );
-  })
-  .catch((err) => {
-    console.error(`totalSupply ${err.message}`);
-  });
+      );
+    })
+    .catch((err) => {
+      console.error(`totalSupply ${err.message}`);
+    });
+  if (totalSupply > lastChecked) {
+    let list = [];
+    for (let i = lastChecked; i < totalSupply; i++) list.push(i);
+    let newTaken = [];
 
-setTimeout(() => {
-  const filteredTaken = taken.filter(unique);
-  const data = JSON.stringify({ taken: sortAlpha(filteredTaken) });
-  fs.writeFile("build/taken2.json", data, "utf8", (err) => {
-    if (err) {
-      console.log(`Error writing file: ${err}`);
-    } else {
-      console.log(`File is written successfully to build/taken2.json`);
-      let updatedTaken = getTaken();
-      console.log("taken count", updatedTaken.length);
-      console.log("tokens left", 7787 - updatedTaken.length);
-      console.log("tokens left", totalSupply);
+    async function fetchTokenIds() {
+      for (const value of list) {
+        await getOwnerByIndex(value)
+          .then((res) => {
+            console.log("got result", res);
+            newTaken.push(res);
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+      }
     }
-  });
-}, 10000);
+
+    await fetchTokenIds();
+    console.log({ newTaken });
+    taken = taken.concat(newTaken);
+
+    const filteredTaken = taken.filter(unique);
+    const data = JSON.stringify({ taken: sortAlpha(filteredTaken) });
+    fs.writeFile("build/taken2.json", data, "utf8", (err) => {
+      if (err) {
+        console.log(`Error writing file: ${err}`);
+      } else {
+        console.log(`File is written successfully to build/taken2.json`);
+        let updatedTaken = getTaken();
+        console.log("tokens taken", totalSupply);
+      }
+    });
+  }
+})();
