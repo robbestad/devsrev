@@ -17,7 +17,7 @@ describe("Token locator", function () {
       expect(getTaken()).to.be.an("array").that.include(300);
     });
     it("should create loop list", function () {
-      expect(makeAvailableList()).to.be.an("array").of.length(30);
+      expect(makeAvailableList()).to.be.an("array").of.length(40);
     });
   });
 });

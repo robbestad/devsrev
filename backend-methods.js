@@ -5,7 +5,7 @@ for (let i = 1; i < 7788; i++) ids.push(i);
 exports.ids = () => ids;
 
 function getAvailable() {
-  return ids.filter((value) => {
+  return ids.sort().filter((value) => {
     if (!taken.includes(value)) return value;
   });
 }
@@ -18,5 +18,5 @@ exports.getAvailable = getAvailable;
 exports.getTaken = getTaken;
 exports.makeAvailableList = function makeAvailableList() {
   const shuffled = getAvailable().sort(() => 0.5 - Math.random());
-  return getAvailable().slice(0, 5).concat(shuffled.slice(0, 25));
+  return getAvailable().slice(0, 15).concat(shuffled.slice(0, 25));
 };
