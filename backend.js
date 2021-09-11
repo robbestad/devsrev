@@ -75,7 +75,6 @@ async function getOwnerByIndex(index) {
 
 let totalSupply = 0;
 let metaFile = "build/meta.json";
-console.log(lastChecked);
 (async function () {
   await getSupply()
     .then((res) => {
@@ -102,7 +101,7 @@ console.log(lastChecked);
     });
   if (totalSupply > lastChecked) {
     let list = [];
-    for (let i = lastChecked; i < totalSupply; i++) list.push(i);
+    for (let i = lastChecked - 1; i < totalSupply; i++) list.push(i);
     let newTaken = [];
 
     async function fetchTokenIds() {
