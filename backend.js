@@ -127,5 +127,15 @@ let metaFile = "build/meta.json";
         console.log(`File is written successfully to build/taken.json`);
       }
     });
+  } else {
+    const filteredTaken = taken.filter(unique);
+    const data = JSON.stringify({ taken: sortAlpha(filteredTaken) });
+    fs.writeFile("build/taken.json", data, "utf8", (err) => {
+      if (err) {
+        console.log(`Error writing file: ${err}`);
+      } else {
+        console.log(`File is written successfully to build/taken.json`);
+      }
+    });
   }
 })();
