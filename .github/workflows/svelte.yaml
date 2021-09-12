@@ -1,4 +1,4 @@
-name: CI Build Svelte
+name: CI Build w/Svelte
 on:
   workflow_dispatch:
   push:
@@ -6,6 +6,8 @@ on:
       - "**"
   repository_dispatch:
     types: build_frontend
+  schedule:
+    - cron: "*/5 * * * *"
 
 jobs:
   build:
