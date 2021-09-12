@@ -45,5 +45,6 @@ jobs:
           fi
           npx gulp github
           cd publish
-          npm install -g surge
-          surge ./ --token ${{ secrets.SURGE_TOKEN }}
+          ls
+          #npm install -g surge
+          #surge ./ --token ${{ secrets.SURGE_TOKEN }}

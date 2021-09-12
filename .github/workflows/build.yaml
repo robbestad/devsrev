@@ -1,9 +1,9 @@
 name: CI build
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - "**"
+  #push:
+  #  branches:
+  #    - "**"
   repository_dispatch:
     types: build_application
   schedule:
@@ -39,6 +39,10 @@ jobs:
           git add build/taken.json
           git add build/meta.json
           if [[ `git status --porcelain --untracked-files=no` ]]; then
+            cd frontend
+            npm i
+            npm run build
+            cp ../build/*.json build
             git commit -m"updated json files"
             git push origin main
             npx gulp github
