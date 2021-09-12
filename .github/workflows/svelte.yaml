@@ -44,10 +44,7 @@ jobs:
             git push origin main
           fi
           npx gulp github
-          echo "--ls root"
-          ls
-          echo "--ls public"
-          ls public
           npm install -g surge
-          cd public
+          cp CNAME publish
+          cd publish
           surge ./ --token ${{ secrets.SURGE_TOKEN }}
