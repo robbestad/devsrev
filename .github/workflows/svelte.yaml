@@ -31,20 +31,23 @@ jobs:
           npm ci
           npm test
           time node backend.js
-          cd frontend
-          npm ci
-          npm run build
-          cp ../build/*.json public
           git config --global user.name 'Sven Anders Robbestad'
           git config --global user.email 'robbestad@gmail.com'
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-          git add public
+          git add build/*.json
           if [[ `git status --porcelain --untracked-files=no` ]]; then
+            cd frontend
+            npm ci
+            npm run build
+            cp ../build/*.json public
+            git add public
             git commit -m"updated svelte front"
             git push origin main
+            npx gulp github
+            npm install -g surge
+            cp CNAME publish
+            cd publish
+            surge ./ --token ${{ secrets.SURGE_TOKEN }}
+          else
+            echo "no changes"
           fi
-          npx gulp github
-          npm install -g surge
-          cp CNAME publish
-          cd publish
-          surge ./ --token ${{ secrets.SURGE_TOKEN }}
