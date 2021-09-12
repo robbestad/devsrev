@@ -38,7 +38,8 @@ jobs:
           git config --global user.name 'Sven Anders Robbestad'
           git config --global user.email 'robbestad@gmail.com'
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-          git commit -m"updated json files"
+          git add public
+          git commit -m"updated svelte front"
           git push origin main
           npx gulp github
           cd publish
