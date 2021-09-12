@@ -36,7 +36,9 @@ App = {
         let sumLeft = 7787 - taken.length;
         var available = availableIds.filter(notInTaken);
         var list = available.filter((i, idx) => idx < 20);
-        $("#result").html("Here are some suggestions:<br/> " + list.join(", "));
+        $("#result")
+          .empty()
+          .append("Here are some suggestions:<br/> " + list.join(", "));
       });
   },
 
@@ -53,9 +55,11 @@ App = {
         let closest = available.reduce(function (prev, curr) {
           return Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev;
         });
-        $("#resultclosest").html(
-          "The closest claimable token ID to " + goal + " is " + closest
-        );
+        $("#resultclosest")
+          .empty()
+          .append(
+            "The closest claimable token ID to " + goal + " is " + closest
+          );
       });
   },
 };
@@ -67,7 +71,7 @@ $(function () {
     fetch("./meta.json")
       .then((data) => data.json())
       .then((data) => {
-        $("#totalsupply").html(`Remaining tokens: ${data.remaining}`);
+        $("#totalsupply").empty().append(`Remaining tokens: ${data.remaining}`);
       });
   });
 });

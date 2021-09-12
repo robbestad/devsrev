@@ -11,11 +11,40 @@
       crossorigin="anonymous"
     />
     <style>
+      html {
+        height: 100%;
+      }
+
+      body {
+        min-height: 100%;
+        position: relative;
+      }
+      footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+
+      header {
+        padding: 1rem;
+        text-shadow: deepskyblue 1px 1px 5px;
+        color: navajowhite;
+      }
+
+      main {
+        padding: 1rem;
+      }
+
+      footer {
+        border-top: 1px solid navajowhite;
+        padding: 1rem;
+      }
+
       body {
         background-color: #2876f9;
         background-image: linear-gradient(315deg, #2876f9 0%, #6d17cb 74%);
         background-size: cover;
-        height: 100vh;
         color: white;
       }
 
@@ -33,14 +62,6 @@
         text-decoration: underline;
       }
 
-      .h1 {
-        margin-top: 1em;
-      }
-
-      .main {
-        margin-top: 3em;
-      }
-
       .tokenidinput {
         max-width: 10em;
       }
@@ -56,35 +77,38 @@
       .btn-find {
         margin: 0.25em 0;
       }
+
       .form-search,
       .print {
         display: block;
       }
 
-      footer {
-        position: absolute;
-        bottom: 0;
+      .footer {
         width: 100%;
       }
 
-      footer > div {
+      .footer > div {
         text-align: center;
         margin: 0 auto;
         color: navajowhite;
       }
 
-      footer > div > a {
+      .footer > div > a {
         color: navajowhite;
         font-weight: bold;
+      }
+
+      .content {
+        display: block;
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <div class="row">
-        <h1 class="text-center h1">Devs for Revolution Token helper</h1>
-      </div>
-      <div class="container main">
+    <article>
+      <header>
+        <h1 class="text-center">Devs for Revolution Token helper</h1>
+      </header>
+      <main>
         <p>Token Ids can be any number between 1 and 7778.</p>
         <p>
           Press the button and find a list of the lowest available token IDs.
@@ -98,14 +122,14 @@
         </p>
 
         <p id="account"></p>
-        <p id="totalsupply"></p>
+        <p id="totalsupply">Remaining tokens: calculating...</p>
 
         <form class="form-search">
           <div class="form-group">
             <label for="tokenid">Starting token id</label>
             <input
               type="text"
-              class="form-control tokenidinput"
+              class="form-contrnol tokenidinput"
               id="tokenid"
               placeholder="1"
             />
@@ -135,13 +159,11 @@
             >Claim your token at Etherscan here (opens new tab)</a
           >
         </div>
-      </div>
-    </div>
-    <footer class="text-center text-lg-start text-muted">
-      <div class="container p-4">
-        made by Sven @ <a href="https://www.robbestad.com">robbestad.com</a>
-      </div>
-    </footer>
+      </main>
+      <footer>
+        <div class="container"></div>
+      </footer>
+    </article>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script
