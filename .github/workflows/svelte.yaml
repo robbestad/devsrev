@@ -49,4 +49,5 @@ jobs:
           echo "--ls public"
           ls public
           npm install -g surge
-          surge publish --token ${{ secrets.SURGE_TOKEN }}
+          cd frontend
+          surge ./ --token ${{ secrets.SURGE_TOKEN }}
