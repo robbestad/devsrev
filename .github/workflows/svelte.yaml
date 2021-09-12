@@ -49,5 +49,5 @@ jobs:
           echo "--ls public"
           ls public
           npm install -g surge
-          cd frontend
+          cd public
           surge ./ --token ${{ secrets.SURGE_TOKEN }}
