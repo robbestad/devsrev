@@ -32,7 +32,7 @@ jobs:
           npm test
           time node backend.js
           cd frontend
-          npm i
+          npm ci
           npm run build
           cp ../build/*.json public
           git config --global user.name 'Sven Anders Robbestad'
