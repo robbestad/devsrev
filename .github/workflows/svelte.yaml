@@ -35,6 +35,9 @@ jobs:
           npm i
           npm run build
           cp ../build/*.json public
+          git config --global user.name 'Sven Anders Robbestad'
+          git config --global user.email 'robbestad@gmail.com'
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
           git commit -m"updated json files"
           git push origin main
           npx gulp github
