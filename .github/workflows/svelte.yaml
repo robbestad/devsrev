@@ -34,7 +34,7 @@ jobs:
           cd frontend
           npm i
           npm run build
-          cp ../build/*.json build
+          cp ../build/*.json public
           git commit -m"updated json files"
           git push origin main
           npx gulp github
