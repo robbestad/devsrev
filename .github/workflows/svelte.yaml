@@ -39,8 +39,10 @@ jobs:
           git config --global user.email 'robbestad@gmail.com'
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
           git add public
-          git commit -m"updated svelte front"
-          git push origin main
+          if [[ `git status --porcelain --untracked-files=no` ]]; then
+            git commit -m"updated svelte front"
+            git push origin main
+          fi
           npx gulp github
           cd publish
           npm install -g surge
