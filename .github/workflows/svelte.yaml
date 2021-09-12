@@ -1,0 +1,43 @@
+name: CI Build Svelte
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "**"
+  repository_dispatch:
+    types: build_frontend
+
+jobs:
+  build:
+    name: Check out and publish
+    runs-on: ubuntu-latest
+
+    env:
+      HASH: $(git rev-parse --short "$GITHUB_SHA")
+      BRANCH: ${GITHUB_REF##*/}
+      SERVICE_NAME: devsrev
+      APIKEY: ${{ secrets.APIKEY }}
+      APISECRET: ${{ secrets.APISECRET }}
+      FROMADDRESS: ${{ secrets.FROMADDRESS }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build
+        run: |-
+          npm ci
+          npm test
+          time node backend.js
+          cd frontend
+          npm i
+          npm run build
+          cp ../build/*.json build
+          git commit -m"updated json files"
+          git push origin main
+          npx gulp github
+          cd publish
+          npm install -g surge
+          surge ./ --token ${{ secrets.SURGE_TOKEN }}
