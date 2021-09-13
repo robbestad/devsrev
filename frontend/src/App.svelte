@@ -47,7 +47,7 @@
             <strong>Remaining tokens:</strong> {remaining}
         </p>
         <p>
-            <strong>Taken tokens:</strong> {taken.length}
+            <strong>Tokens taken:</strong> {taken.length}
         </p>
 
     </div>
