@@ -57,4 +57,7 @@
             {availableIds.slice(0, 100).join(", ")}
         </p>
     </div>
+    <div>
+    <a href="https://etherscan.io/token/0x25ed58c027921e14d86380ea2646e3a1b5c55a8b#writeContract" target="_blank" referrer="no-referrer no-opener">Open Etherscan (in a new window)</a>
+    </div>
 </span>
