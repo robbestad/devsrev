@@ -1,7 +1,6 @@
 <script>
 	import axios from "axios"
 	import {onMount} from "svelte";
-    export let name;
 	let remaining = 0;
 	let taken = [];
 	let availableIds = [];

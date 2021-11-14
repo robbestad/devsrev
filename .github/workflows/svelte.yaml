@@ -56,9 +56,6 @@ jobs:
             npm ci
             npm run build
             cp ../build/*.json public
-            git add public
-            git commit -m"updated svelte front"
-            git push origin main
             npx gulp github
             npm install -g surge
             cp CNAME publish
