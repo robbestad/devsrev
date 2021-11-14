@@ -52,4 +52,16 @@ jobs:
             surge ./ --token ${{ secrets.SURGE_TOKEN }}
           else
             echo "no changes"
+            cd frontend
+            npm ci
+            npm run build
+            cp ../build/*.json public
+            git add public
+            git commit -m"updated svelte front"
+            git push origin main
+            npx gulp github
+            npm install -g surge
+            cp CNAME publish
+            cd publish
+            surge ./ --token ${{ secrets.SURGE_TOKEN }}
           fi
